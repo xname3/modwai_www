@@ -21,7 +21,7 @@ Then open `http://localhost:8000` to preview the site.
 ## Paddle checkout configuration
 The checkout buttons ship with two layers of behavior:
 
-1. **Hosted checkout fallback** – Each button's `href` points to the Paddle hosted checkout URL (e.g. `https://buy.paddle.com/checkout/prices/pri_01k8e7kh6g9acdtr82pczkm414`). This works immediately on GitHub Pages without additional configuration.
+1. **Hosted checkout fallback** – Each button's `href` points to the Paddle hosted checkout URL (sandbox or production, matching `window.PADDLE_ENV`). With the current sandbox configuration, links resolve to `https://sandbox-checkout.paddle.com/checkout/prices/<priceId>` and work immediately on GitHub Pages.
 2. **Overlay checkout (optional)** – If you prefer the overlay experience, expose a short-lived Paddle client token at runtime. Add a snippet such as:
 
 ```html
@@ -32,7 +32,7 @@ The checkout buttons ship with two layers of behavior:
 
 When the token is present, `app.js` will initialize Paddle's JavaScript SDK and open the overlay instead of navigating away. Tokens expire quickly, so serve them from a lightweight backend (serverless function, Cloudflare Worker, etc.) rather than hardcoding secrets in the repository.
 
-You can change the environment by setting `window.PADDLE_ENV = 'sandbox';` while testing with Paddle's sandbox environment.
+The site is currently wired for Paddle sandbox (`window.PADDLE_ENV = 'sandbox'`). Switch to production by updating the value in `index.html`, which also updates the hosted checkout fallback URLs automatically.
 
 ## GitHub Pages deployment
 1. Commit the generated files to the default branch (usually `main`).
@@ -47,13 +47,16 @@ You can change the environment by setting `window.PADDLE_ENV = 'sandbox';` while
 ├── app.js
 ├── styles.css
 ├── assets/
-│   └── modwai-logo.svg
+│   ├── modwai-logo.svg
+│   ├── modwai-session-overview.png
+│   └── modwai-sql-plan.png
 └── README.md
 ```
 
 ## Customization checklist
 - Update feature copy, pricing blurbs, and contact details as your offer evolves.
 - If you change price IDs, edit the `data-monthly-id` / `data-annual-id` attributes inside each pricing card in `index.html`.
+- Replace the placeholder screenshots in `assets/modwai-session-overview.png` and `assets/modwai-sql-plan.png` with the real application captures.
 - Tailor the design by adjusting colors, typography, or layout in `styles.css`.
 - Replace Google Fonts, analytics, or other integrations as needed for production.
 

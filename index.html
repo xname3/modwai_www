@@ -17,7 +17,7 @@
         <img src="assets/modwai-logo.svg" alt="MODWAI logo">
       </a>
       <nav class="site-nav" id="primary-navigation" data-nav>
-        <a href="#features">Features</a>
+        <a href="#console">Product</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
@@ -48,7 +48,7 @@
           </ul>
           <div class="hero-actions">
             <a class="cta-button checkout-btn" data-price-id="pri_01k8e7kh6g9acdtr82pczkm414" data-plan="Observability Starter">Start with monthly plan</a>
-            <a class="ghost-button" href="#features">Explore capabilities</a>
+            <a class="ghost-button" href="#console">Explore capabilities</a>
           </div>
           <div class="hero-note">
             <span class="hero-note-badge">Paddle checkout</span>
@@ -88,90 +88,28 @@
       </div>
     </section>
 
-    <section class="section social-proof">
-      <div class="container proof-layout">
-        <div class="proof-metric">
-          <span class="proof-value">10x</span>
-          Faster root-cause analysis across distributed Oracle estates.
-        </div>
-        <div class="proof-metric">
-          <span class="proof-value">99.95%</span>
-          Availability maintained by customers running mission-critical workloads.
-        </div>
-        <div class="proof-metric">
-          <span class="proof-value">24/7</span>
-          AI assistant coverage with human-in-the-loop handoff whenever needed.
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="features">
-      <div class="container">
-        <h2 class="section-title">Everything you need to run Oracle with confidence</h2>
-        <p class="section-lede">
-          MODWAI combines deep database telemetry, predictive analytics, and generative AI guidance to keep your Oracle environment optimized and future-ready.
-        </p>
-        <div class="feature-grid">
-          <article class="feature-card">
-            <h3>Streaming observability</h3>
-            <p>Collect wait events, session history, ASH/AWR, and infrastructure metrics in real time with zero agent maintenance.</p>
-            <ul>
-              <li>Agentless &amp; low overhead collectors</li>
-              <li>GoldenGate, RAC, and Exadata support</li>
-              <li>Unified dashboards for DBAs &amp; SREs</li>
-            </ul>
-          </article>
-          <article class="feature-card">
-            <h3>AI remediation assistant</h3>
-            <p>Use natural language to investigate anomalies, compare baselines, and generate runbooks tailored to your environment.</p>
-            <ul>
-              <li>Context-aware SQL tuning recommendations</li>
-              <li>Automated impact analysis with rollback plans</li>
-              <li>Seamless ServiceNow &amp; Jira updates</li>
-            </ul>
-          </article>
-          <article class="feature-card">
-            <h3>Compliance &amp; governance</h3>
-            <p>Enforce least privilege, audit changes, and surface risks before they become outages with AI-powered policy insights.</p>
-            <ul>
-              <li>Continuous CIS &amp; GDPR checks</li>
-              <li>Separation of duties guardrails</li>
-              <li>Executive-ready compliance reporting</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section highlight">
-      <div class="container highlight-layout">
-        <div class="highlight-copy">
-          <h2>Unlock time to innovate</h2>
-          <p>
-            MODWAI's assistant reduces alert fatigue by summarizing incidents, recommending fixes, and even automating remediation where you approve it.
+    <section class="section product-overview" id="console">
+      <div class="container product-layout">
+        <div class="product-copy">
+          <h2 class="section-title">Deep Oracle telemetry with AI guidance</h2>
+          <p class="section-lede">
+            MODWAI surfaces the metrics that matter&mdash;from active sessions to execution plans&mdash;and layers in assistant-driven recommendations so your team can tune databases before issues escalate.
           </p>
-          <ul class="highlight-list">
-            <li>Explain complex Oracle metrics in plain English</li>
-            <li>Cross-check incidents against past fixes in seconds</li>
-            <li>Automate playbooks with guardrails and approvals</li>
+          <ul class="product-points">
+            <li>Track sessions, wait events, PGA usage, and more with auto-refresh controls.</li>
+            <li>Drill into SQL execution plans and let AI call out cost-drivers instantly.</li>
+            <li>Share AI-authored optimization notes with DBAs, SREs, and stakeholders.</li>
           </ul>
         </div>
-        <div class="highlight-card">
-          <h3 class="highlight-card-title">Assistant command center</h3>
-          <ul class="highlight-card-list">
-            <li>
-              <span class="list-title">Timeline summary</span>
-              <span class="list-subtitle">Impact surfaced for DBAs, SREs, and leadership.</span>
-            </li>
-            <li>
-              <span class="list-title">Recommended actions</span>
-              <span class="list-subtitle">Step-by-step fix with rollback scripts.</span>
-            </li>
-            <li>
-              <span class="list-title">Automation status</span>
-              <span class="list-subtitle">1-click to run or schedule remediation securely.</span>
-            </li>
-          </ul>
+        <div class="product-screens">
+          <figure class="product-screen">
+            <img src="assets/modwai-session-overview.png" alt="MODWAI session overview with active sessions and filters" loading="lazy">
+            <figcaption>Session catalog with contextual filters and auto refresh.</figcaption>
+          </figure>
+          <figure class="product-screen">
+            <img src="assets/modwai-sql-plan.png" alt="MODWAI SQL execution plan analysis with AI insights" loading="lazy">
+            <figcaption>SQL plan exploration with AI-powered optimization tips.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -331,7 +269,7 @@
 
   <script>
     window.PADDLE_VENDOR_ID = '40170';
-    window.PADDLE_ENV = 'production';
+    window.PADDLE_ENV = 'sandbox';
   </script>
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js" async></script>
   <script src="app.js" defer></script>

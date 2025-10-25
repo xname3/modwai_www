@@ -29,7 +29,10 @@
     yearTarget.textContent = String(new Date().getFullYear());
   }
 
-  const fallbackBaseUrl = 'https://buy.paddle.com/checkout/prices/';
+  const fallbackBaseUrl =
+    window.PADDLE_ENV === 'sandbox'
+      ? 'https://sandbox-checkout.paddle.com/checkout/prices/'
+      : 'https://buy.paddle.com/checkout/prices/';
   const successUrl = (() => {
     try {
       return new URL('checkout-success.html', window.location.href).toString();
