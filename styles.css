@@ -705,6 +705,14 @@ svg {
   z-index: 1;
 }
 
+.checkout-btn.is-disabled {
+  background: rgba(148, 163, 184, 0.35);
+  color: rgba(15, 23, 42, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 .plan-note {
   margin: 0;
   color: var(--color-muted);

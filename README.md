@@ -32,7 +32,7 @@ The checkout buttons ship with two layers of behavior:
 
 When the token is present, `app.js` will initialize Paddle's JavaScript SDK and open the overlay instead of navigating away. Tokens expire quickly, so serve them from a lightweight backend (serverless function, Cloudflare Worker, etc.) rather than hardcoding secrets in the repository.
 
-The site is currently wired for Paddle sandbox (`window.PADDLE_ENV = 'sandbox'`). Switch to production by updating the value in `index.html`, which also updates the hosted checkout fallback URLs automatically.
+The site is currently wired for Paddle sandbox (`window.PADDLE_ENV = 'sandbox'`). Populate the `data-monthly-sandbox-id` / `data-annual-sandbox-id` attributes on each pricing card with real sandbox price IDs; the buttons stay disabled until you do. Switch to production by updating the value in `index.html` (and optionally removing the sandbox IDs), which also updates the hosted checkout fallback URLs automatically.
 
 ## GitHub Pages deployment
 1. Commit the generated files to the default branch (usually `main`).

@@ -29,10 +29,12 @@
     yearTarget.textContent = String(new Date().getFullYear());
   }
 
+  const isSandbox = (window.PADDLE_ENV || '').toLowerCase() === 'sandbox';
   const fallbackBaseUrl =
-    window.PADDLE_ENV === 'sandbox'
+    window.PADDLE_CHECKOUT_BASE_URL ||
+    (isSandbox
       ? 'https://sandbox-checkout.paddle.com/checkout/prices/'
-      : 'https://buy.paddle.com/checkout/prices/';
+      : 'https://buy.paddle.com/checkout/prices/');
   const successUrl = (() => {
     try {
       return new URL('checkout-success.html', window.location.href).toString();
@@ -44,7 +46,14 @@
   let paddleInitialized = false;
 
   function ensureCheckoutUrl(element, priceId) {
-    if (!priceId || !element) {
+    if (!element) {
+      return;
+    }
+    if (!priceId) {
+      element.dataset.priceId = '';
+      element.removeAttribute('href');
+      element.removeAttribute('target');
+      element.removeAttribute('rel');
       return;
     }
     element.dataset.priceId = priceId;
@@ -64,14 +73,31 @@
     });
 
     document.querySelectorAll('[data-plan-card]').forEach((card) => {
-      const priceId = card.dataset[`${billingMode}Id`];
+      const sandboxPriceId = card.dataset[`${billingMode}SandboxId`];
+      const priceId = isSandbox ? sandboxPriceId : card.dataset[`${billingMode}Id`];
       const priceLabel = card.querySelector('[data-price-label]');
       const billingCopy = card.querySelector('[data-billing-copy]');
       const button = card.querySelector('.checkout-btn');
-      if (!priceId || !button) {
+      if (!button) {
         return;
       }
 
+      const missingSandboxId = isSandbox && !sandboxPriceId;
+      button.classList.toggle('is-disabled', missingSandboxId);
+      if (missingSandboxId) {
+        button.setAttribute('aria-disabled', 'true');
+        ensureCheckoutUrl(button, null);
+        if (priceLabel) {
+          priceLabel.textContent = 'Sandbox price ID not configured';
+        }
+        if (billingCopy) {
+          billingCopy.textContent = 'Add your Paddle sandbox price IDs in index.html';
+        }
+        button.textContent = 'Configure sandbox price ID';
+        return;
+      }
+
+      button.removeAttribute('aria-disabled');
       ensureCheckoutUrl(button, priceId);
 
       const label = card.dataset[`${billingMode}Label`];
@@ -129,6 +155,10 @@
   const checkoutButtons = document.querySelectorAll('.checkout-btn');
   checkoutButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
+      if (button.classList.contains('is-disabled')) {
+        event.preventDefault();
+        return;
+      }
       const priceId = button.dataset.priceId;
       if (!priceId) {
         return;
