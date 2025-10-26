@@ -44,6 +44,7 @@
     }
   })();
   let paddleInitialized = false;
+  let priceCache = {};
 
   function ensureCheckoutUrl(element, priceId) {
     if (!element) {
@@ -72,7 +73,7 @@
       button.setAttribute('aria-pressed', String(isActive));
     });
 
-    document.querySelectorAll('[data-plan-card]').forEach((card) => {
+    document.querySelectorAll('[data-plan-card]').forEach(async (card) => {
       const sandboxPriceId = card.dataset[`${billingMode}SandboxId`];
       const priceId = isSandbox ? sandboxPriceId : card.dataset[`${billingMode}Id`];
       const priceLabel = card.querySelector('[data-price-label]');
@@ -100,9 +101,21 @@
       button.removeAttribute('aria-disabled');
       ensureCheckoutUrl(button, priceId);
 
-      const label = card.dataset[`${billingMode}Label`];
-      if (label && priceLabel) {
-        priceLabel.textContent = label;
+      // Show loading state
+      if (priceLabel) {
+        priceLabel.textContent = 'Loading price...';
+      }
+
+      // Fetch and display actual price
+      const priceData = await fetchPrice(priceId);
+      if (priceData && priceLabel) {
+        priceLabel.textContent = formatPriceDisplay(priceData);
+      } else if (priceLabel) {
+        // Fallback to label if price fetch fails
+        const label = card.dataset[`${billingMode}Label`];
+        if (label) {
+          priceLabel.textContent = label;
+        }
       }
 
       if (billingCopy) {
@@ -152,6 +165,57 @@
     }
   }
 
+  async function fetchPrice(priceId) {
+    if (!priceId) {
+      return null;
+    }
+
+    if (priceCache[priceId]) {
+      return priceCache[priceId];
+    }
+
+    if (!initPaddle()) {
+      return null;
+    }
+
+    try {
+      const result = await window.Paddle.PricePreview({
+        items: [{ priceId, quantity: 1 }]
+      });
+
+      if (result && result.data && result.data.details && result.data.details.lineItems) {
+        const lineItem = result.data.details.lineItems[0];
+        if (lineItem) {
+          const priceData = {
+            amount: lineItem.formattedTotals.total,
+            currency: result.data.currencyCode,
+            interval: lineItem.price.billingCycle?.interval || 'month',
+            intervalCount: lineItem.price.billingCycle?.frequency || 1
+          };
+          priceCache[priceId] = priceData;
+          return priceData;
+        }
+      }
+    } catch (error) {
+      console.warn(`Failed to fetch price for ${priceId}:`, error);
+    }
+
+    return null;
+  }
+
+  function formatPriceDisplay(priceData) {
+    if (!priceData) {
+      return 'Loading...';
+    }
+
+    const { amount, interval, intervalCount } = priceData;
+    const period = intervalCount > 1 
+      ? `every ${intervalCount} ${interval}s` 
+      : `per ${interval}`;
+    
+    return `${amount} ${period}`;
+  }
+
   const checkoutButtons = document.querySelectorAll('.checkout-btn');
   checkoutButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
@@ -184,5 +248,20 @@
     });
   });
 
-  applyBillingMode('monthly');
+  // Wait for Paddle SDK to load before initializing prices
+  function initializePrices() {
+    if (initPaddle()) {
+      applyBillingMode('monthly');
+    } else {
+      // Retry after a short delay if Paddle isn't ready yet
+      setTimeout(initializePrices, 100);
+    }
+  }
+
+  // Start initialization when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePrices);
+  } else {
+    initializePrices();
+  }
 })();
