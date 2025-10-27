@@ -29,6 +29,82 @@
     yearTarget.textContent = String(new Date().getFullYear());
   }
 
+  // OS Detection for download section
+  function detectOS() {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const platform = window.navigator.platform.toLowerCase();
+    
+    if (platform.includes('mac') || userAgent.includes('macintosh')) {
+      return 'mac';
+    } else if (platform.includes('win') || userAgent.includes('windows')) {
+      return 'windows';
+    } else if (platform.includes('linux') || userAgent.includes('linux')) {
+      // Try to detect which Linux distro (DEB vs RPM)
+      // Default to DEB as it's more common
+      if (userAgent.includes('fedora') || userAgent.includes('rhel') || userAgent.includes('centos')) {
+        return 'linux-rpm';
+      }
+      return 'linux-deb';
+    }
+    return null;
+  }
+
+  function highlightRecommendedDownload() {
+    const detectedOS = detectOS();
+    if (!detectedOS) {
+      return;
+    }
+
+    const downloadCards = document.querySelectorAll('.download-card');
+    downloadCards.forEach((card) => {
+      if (card.dataset.os === detectedOS) {
+        card.classList.add('is-recommended');
+        // Scroll into view if it's off screen (optional)
+        if (window.location.hash === '#download') {
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      }
+    });
+  }
+
+  // Run OS detection when page loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightRecommendedDownload);
+  } else {
+    highlightRecommendedDownload();
+  }
+
+  // Debug function - accessible from browser console
+  window.debugDownloads = function() {
+    const detectedOS = detectOS();
+    console.log('Detected OS:', detectedOS);
+    console.log('User Agent:', navigator.userAgent);
+    console.log('Platform:', navigator.platform);
+    return {
+      detectedOS,
+      userAgent: navigator.userAgent,
+      platform: navigator.platform
+    };
+  };
+
+  // Manual OS override for testing - accessible from browser console
+  window.setRecommendedOS = function(os) {
+    const validOS = ['mac', 'windows', 'linux-deb', 'linux-rpm'];
+    if (!validOS.includes(os)) {
+      console.error(`Invalid OS. Use one of: ${validOS.join(', ')}`);
+      return;
+    }
+    document.querySelectorAll('.download-card').forEach((card) => {
+      card.classList.remove('is-recommended');
+      if (card.dataset.os === os) {
+        card.classList.add('is-recommended');
+      }
+    });
+    console.log(`Recommended download set to: ${os}`);
+  };
+
   const isSandbox = (window.PADDLE_ENV || '').toLowerCase() === 'sandbox';
   const fallbackBaseUrl =
     window.PADDLE_CHECKOUT_BASE_URL ||
