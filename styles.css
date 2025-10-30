@@ -906,6 +906,17 @@ svg {
   color: var(--color-muted);
 }
 
+.contact .ghost-button {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.contact .ghost-button:hover {
+  background: rgba(67, 56, 202, 0.08);
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark);
+}
+
 .site-footer {
   background: #0f172a;
   color: rgba(255, 255, 255, 0.75);
