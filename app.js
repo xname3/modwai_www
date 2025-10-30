@@ -1,4 +1,46 @@
 (() => {
+  // Construction Modal
+  const modal = document.getElementById('constructionModal');
+  const closeButton = document.getElementById('closeModal');
+  const MODAL_STORAGE_KEY = 'modwai_construction_notice_seen';
+
+  // Check if user has already seen the modal
+  const hasSeenModal = localStorage.getItem(MODAL_STORAGE_KEY);
+
+  if (!hasSeenModal && modal) {
+    // Show modal and prevent scrolling
+    document.body.classList.add('modal-open');
+    
+    // Close modal handler
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+      localStorage.setItem(MODAL_STORAGE_KEY, 'true');
+    };
+
+    if (closeButton) {
+      closeButton.addEventListener('click', closeModal);
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // Close on overlay click (optional)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  } else if (modal) {
+    // Hide modal if already seen
+    modal.classList.add('hidden');
+  }
+
+  // Navigation
   const NAV_OPEN_CLASS = 'is-open';
   const navToggle = document.querySelector('[data-nav-toggle]');
   const navMenu = document.querySelector('[data-nav]');
@@ -340,4 +382,10 @@
   } else {
     initializePrices();
   }
+
+  // Debug function - accessible from browser console to reset modal
+  window.resetConstructionModal = function() {
+    localStorage.removeItem('modwai_construction_notice_seen');
+    console.log('Construction modal reset. Refresh the page to see it again.');
+  };
 })();

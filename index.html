@@ -11,6 +11,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Construction Notice Modal -->
+  <div class="modal-overlay" id="constructionModal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="3" fill="none"/>
+          <path d="M32 20V34M32 42V44" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2>Project Under Construction</h2>
+      <p>This website is currently under development. Please note:</p>
+      <ul class="modal-list">
+        <li>Downloads and purchases are not yet available</li>
+        <li>Some features may not work as expected</li>
+        <li>Content is for preview purposes only</li>
+      </ul>
+      <p class="modal-footer">Thank you for your understanding!</p>
+      <button class="modal-button" id="closeModal">I Understand</button>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container header-layout">
       <a class="logo" href="#top">
