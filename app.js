@@ -1,13 +1,9 @@
 (() => {
-  // Construction Modal
+  // Construction Modal - Always show
   const modal = document.getElementById('constructionModal');
   const closeButton = document.getElementById('closeModal');
-  const MODAL_STORAGE_KEY = 'modwai_construction_notice_seen';
 
-  // Check if user has already seen the modal
-  const hasSeenModal = localStorage.getItem(MODAL_STORAGE_KEY);
-
-  if (!hasSeenModal && modal) {
+  if (modal) {
     // Show modal and prevent scrolling
     document.body.classList.add('modal-open');
     
@@ -15,7 +11,6 @@
     const closeModal = () => {
       modal.classList.add('hidden');
       document.body.classList.remove('modal-open');
-      localStorage.setItem(MODAL_STORAGE_KEY, 'true');
     };
 
     if (closeButton) {
@@ -35,9 +30,6 @@
         closeModal();
       }
     });
-  } else if (modal) {
-    // Hide modal if already seen
-    modal.classList.add('hidden');
   }
 
   // Navigation
@@ -383,9 +375,4 @@
     initializePrices();
   }
 
-  // Debug function - accessible from browser console to reset modal
-  window.resetConstructionModal = function() {
-    localStorage.removeItem('modwai_construction_notice_seen');
-    console.log('Construction modal reset. Refresh the page to see it again.');
-  };
 })();
