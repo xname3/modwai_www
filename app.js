@@ -1,37 +1,4 @@
 (() => {
-  // Construction Modal - Always show
-  const modal = document.getElementById('constructionModal');
-  const closeButton = document.getElementById('closeModal');
-
-  if (modal) {
-    // Show modal and prevent scrolling
-    document.body.classList.add('modal-open');
-    
-    // Close modal handler
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      document.body.classList.remove('modal-open');
-    };
-
-    if (closeButton) {
-      closeButton.addEventListener('click', closeModal);
-    }
-
-    // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeModal();
-      }
-    });
-
-    // Close on overlay click (optional)
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-  }
-
   // Navigation
   const NAV_OPEN_CLASS = 'is-open';
   const navToggle = document.querySelector('[data-nav-toggle]');
