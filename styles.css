@@ -855,9 +855,10 @@ svg {
 .download-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(4, 1fr);
-  max-width: 1200px;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
   margin: 0 auto;
+  justify-items: center;
 }
 
 .download-card {

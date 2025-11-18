@@ -11,27 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Construction Notice Modal -->
-  <div class="modal-overlay" id="constructionModal">
-    <div class="modal-content">
-      <div class="modal-icon">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="3" fill="none"/>
-          <path d="M32 20V34M32 42V44" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h2>Project Under Construction</h2>
-      <p>This website is currently under development. Please note:</p>
-      <ul class="modal-list">
-        <li>Downloads and purchases are not yet available</li>
-        <li>Some features may not work as expected</li>
-        <li>Content is for preview purposes only</li>
-      </ul>
-      <p class="modal-footer">Thank you for your understanding!</p>
-      <button class="modal-button" id="closeModal">I Understand</button>
-    </div>
-  </div>
-
   <header class="site-header">
     <div class="container header-layout">
       <a class="logo" href="#top">
@@ -84,7 +63,7 @@
           </div>
           <div class="hero-note">
             <span class="hero-note-badge">Free 7-day trial</span>
-            Available for macOS, Windows and Linux.
+            Available for macOS and Windows.
           </div>
         </div>
         <div class="hero-visual">
@@ -180,6 +159,7 @@
             </a>
             <p class="download-note">.exe installer • 64-bit</p>
           </article>
+          <!-- TEMPORARILY DISABLED - Linux versions not yet tested
           <article class="download-card" data-os="linux-deb">
             <div class="download-icon">
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,6 +188,7 @@
             </a>
             <p class="download-note">.rpm package • x86_64</p>
           </article>
+          END TEMPORARILY DISABLED -->
         </div>
       </div>
     </section>
@@ -216,19 +197,21 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title">Flexible subscriptions to match your Oracle footprint</h2>
-            <p class="section-lede">Pick a plan that fits your scale today and grow without friction.</p>
+            <h2 class="section-title">Monthly Subscription Plans</h2>
+            <p class="section-lede">Flexible monthly billing - cancel anytime. Pick a plan that fits your requirements.</p>
           </div>
+          <!-- TEMPORARILY DISABLED - Annual billing toggle
           <div class="billing-toggle" role="group" aria-label="Toggle billing cadence" data-billing-toggle>
             <button type="button" class="toggle-button is-active" data-billing-option="monthly" aria-pressed="true">Monthly</button>
             <button type="button" class="toggle-button" data-billing-option="annual" aria-pressed="false">Annual &middot; Save more</button>
           </div>
+          END TEMPORARILY DISABLED -->
         </div>
 
         <div class="pricing-grid">
           <article class="plan-card" data-plan-card
-            data-monthly-id="pri_01k8dxd4qvr1wnrd1c34dhbh5y"
-            data-annual-id="pri_01k8e7g8bgwzn80gjaakfgabfe"
+            data-monthly-id="pri_01kabyyn82g7hw52mj37v68f2p"
+            data-annual-id="pri_01kabyyn82g7hw52mj37v68f2p"
             data-monthly-sandbox-id="pri_01k8dxd4qvr1wnrd1c34dhbh5y"
             data-annual-sandbox-id="pri_01k8e7g8bgwzn80gjaakfgabfe"
             data-monthly-label="Loading..."
@@ -258,8 +241,8 @@
           </article>
 
           <article class="plan-card is-featured" data-plan-card
-            data-monthly-id="pri_01k8dxeca4wc8dwndkvaxk1xtq"
-            data-annual-id="pri_01k8e7hqxbc8expmheydy3p8tv"
+            data-monthly-id="pri_01kabz0rgter4ybbxat5yypgqp"
+            data-annual-id="pri_01kabz0rgter4ybbxat5yypgqp"
             data-monthly-sandbox-id="pri_01k8dxeca4wc8dwndkvaxk1xtq"
             data-annual-sandbox-id="pri_01k8e7hqxbc8expmheydy3p8tv"
             data-monthly-label="Loading..."
@@ -284,8 +267,8 @@
           </article>
 
           <article class="plan-card" data-plan-card
-            data-monthly-id="pri_01k8dxk5e3nsnq9zeatcxtjy4n"
-            data-annual-id="pri_01k8e7kh6g9acdtr82pczkm414"
+            data-monthly-id="pri_01kabz2axhm6vacm5h8mxzpmy0"
+            data-annual-id="pri_01kabz2axhm6vacm5h8mxzpmy0"
             data-monthly-sandbox-id="pri_01k8dxk5e3nsnq9zeatcxtjy4n"
             data-annual-sandbox-id="pri_01k8e7kh6g9acdtr82pczkm414"
             data-monthly-label="Loading..."
@@ -380,9 +363,8 @@
 
   <script>
     window.PADDLE_VENDOR_ID = '40170';
-    window.PADDLE_ENV = 'sandbox';
-    // TODO: Replace with your actual Paddle sandbox client token
-    window.PADDLE_CLIENT_TOKEN = 'test_52351ca5e1e64a70da83880cea8';
+    window.PADDLE_ENV = 'production';
+    window.PADDLE_CLIENT_TOKEN = 'live_50e548de61601af4af588c5f340';
   </script>
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js" async></script>
   <script src="app.js" defer></script>
