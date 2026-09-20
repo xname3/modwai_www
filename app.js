@@ -122,6 +122,8 @@
   })();
   let paddleInitialized = false;
   let priceCache = {};
+  let currentBillingMode = 'monthly';
+  let billingRevision = 0;
 
   function ensureCheckoutUrl(element, priceId) {
     if (!element) {
@@ -142,6 +144,8 @@
 
   function applyBillingMode(mode) {
     const billingMode = mode === 'annual' ? 'annual' : 'monthly';
+    currentBillingMode = billingMode;
+    const revision = ++billingRevision;
     document.documentElement.setAttribute('data-billing', billingMode);
 
     document.querySelectorAll('[data-billing-option]').forEach((button) => {
@@ -185,6 +189,11 @@
 
       // Fetch and display actual price
       const priceData = await fetchPrice(priceId);
+      // A slower response for a previous selection must not change the price
+      // displayed next to the checkout ID for the current selection.
+      if (revision !== billingRevision || button.dataset.priceId !== priceId) {
+        return;
+      }
       if (priceData && priceLabel) {
         priceLabel.textContent = formatPriceDisplay(priceData);
       } else if (priceLabel) {
@@ -326,12 +335,16 @@
   });
 
   // Wait for Paddle SDK to load before initializing prices
-  function initializePrices() {
+  function initializePrices(attempt = 0) {
+    if (!document.querySelectorAll('[data-plan-card]').length) {
+      return;
+    }
     if (initPaddle()) {
-      applyBillingMode('monthly');
+      applyBillingMode(currentBillingMode);
     } else {
-      // Retry after a short delay if Paddle isn't ready yet
-      setTimeout(initializePrices, 100);
+      // Configure hosted checkout links even if the SDK cannot load.
+      if (attempt === 0) applyBillingMode(currentBillingMode);
+      if (attempt < 30) setTimeout(() => initializePrices(attempt + 1), 100);
     }
   }
 

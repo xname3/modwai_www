@@ -1,0 +1,16 @@
+MODWAI website — third-party notices
+
+Inter font: Copyright (c) 2016 The Inter Project Authors.
+SIL Open Font License 1.1: LICENSES/Inter-OFL-1.1.txt.
+Upstream: https://github.com/rsms/inter
+Pages currently load Inter through Google Fonts. If self-hosted later, retain
+the copyright/license with the exact font files.
+
+Paddle.js v2: https://cdn.paddle.com/paddle/v2/paddle.js
+Google Analytics gtag.js: Google's hosted service.
+These integrations have separate provider terms; they are not represented as
+MIT/Apache libraries or as permanently free services.
+
+No npm dependency manifest or bundled icon/font package was found in this site.
+Inline SVG, branding and screenshots require ownership/provenance records; this
+file does not assign them licenses by assumption.
