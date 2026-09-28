@@ -44,6 +44,12 @@ views, FAQ, Linux instructions, and the shared legal/confirmation pages.
 Without JavaScript, all gallery screenshots remain visible, FAQs and installation
 instructions work, and checkout links still point to the configured monthly plans.
 
+The gallery shows full application windows (2400 × 1800): instance dashboard,
+SQL worksheet with an estimated plan, diagnostic graphs, and health checks.
+Images retain their full aspect ratio and link to the original PNG. Only the
+first image loads eagerly. Preserve the example-data captions when replacing
+captures; show real widgets and avoid exposing account or database identifiers.
+
 ## Pricing and checkout
 
 The existing production Paddle client-side configuration and product price IDs are

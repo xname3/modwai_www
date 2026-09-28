@@ -13,16 +13,16 @@
   <meta property="og:description" content="Monitor Oracle databases, run SQL and inspect execution plans from your desktop. For macOS, Windows and Linux, with optional AI assistance.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.modwai.eu/">
-  <meta property="og:image" content="https://www.modwai.eu/assets/workspace-plan.png">
+  <meta property="og:image" content="https://www.modwai.eu/assets/workspace-dashboard.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1100">
-  <meta property="og:image:height" content="720">
-  <meta property="og:image:alt" content="MODWAI execution plan viewer showing a cursor and operation tree with example data">
+  <meta property="og:image:width" content="2400">
+  <meta property="og:image:height" content="1800">
+  <meta property="og:image:alt" content="Full MODWAI application window with the instance dashboard, navigation and example activity data">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MODWAI — Oracle Database Monitoring &amp; SQL Tools">
   <meta name="twitter:description" content="Monitor Oracle databases, run SQL and inspect execution plans from your desktop. For macOS, Windows and Linux, with optional AI assistance.">
-  <meta name="twitter:image" content="https://www.modwai.eu/assets/workspace-plan.png">
-  <meta name="twitter:image:alt" content="MODWAI execution plan viewer showing a cursor and operation tree with example data">
+  <meta name="twitter:image" content="https://www.modwai.eu/assets/workspace-dashboard.png">
+  <meta name="twitter:image:alt" content="Full MODWAI application window with the instance dashboard, navigation and example activity data">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -88,21 +88,22 @@
         </div>
 
         <div class="workspace-gallery" id="console" data-gallery>
-          <div class="gallery-heading"><span class="eyebrow">Inside the workspace</span><div class="gallery-controls" role="group" aria-label="Choose an application view"><button type="button" data-gallery-tab="plans" aria-pressed="true">Execution plans</button><button type="button" data-gallery-tab="sessions" aria-pressed="false">Sessions</button><button type="button" data-gallery-tab="datapump" aria-pressed="false">Data Pump</button></div></div>
-          <figure class="workspace-panel" data-gallery-panel="plans">
-            <div class="workspace-description"><span class="workspace-number">01 / SQL DIAGNOSTICS</span><h2>Follow the plan.<br> Keep the context.</h2><p>Explore the operation tree, available runtime statistics and captured bind values for a selected cursor.</p><span class="workspace-tag">Plan tree &amp; source text</span><a href="assets/workspace-plan.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
-            <div class="workspace-image"><img src="assets/workspace-plan.png" width="1100" height="720" alt="MODWAI execution plan viewer with a cached child cursor, operation tree, row counts and inspection hints" fetchpriority="high"></div>
-            <figcaption>Application view with example data. Runtime statistics and captured binds depend on what Oracle has collected.</figcaption>
+          <div class="gallery-heading"><span class="eyebrow">Inside the workspace</span><div class="gallery-controls" role="group" aria-label="Choose an application view"><button type="button" data-gallery-tab="dashboard" aria-pressed="true">Overview</button><button type="button" data-gallery-tab="sql" aria-pressed="false">SQL &amp; plans</button><button type="button" data-gallery-tab="diagnostics" aria-pressed="false">Diagnostic graphs</button><button type="button" data-gallery-tab="health" aria-pressed="false">Health checks</button></div></div>
+          <figure class="workspace-panel" data-gallery-panel="dashboard">
+            <a class="workspace-image" href="assets/workspace-dashboard.png" target="_blank" rel="noopener" aria-label="Open the full application dashboard screenshot"><img src="assets/workspace-dashboard.png" width="2400" height="1800" alt="Full MODWAI window in dark mode: report navigation, open workspace tabs and an instance dashboard with sessions, waits, process capacity and activity charts" fetchpriority="high"></a>
+            <figcaption><div class="workspace-description"><div><span class="workspace-number">01 / THE FULL WORKSPACE</span><h2>A view of the instance.</h2></div><p>Keep session activity, wait classes and interval metrics in view, with database reports and other open tools alongside.</p><a href="assets/workspace-dashboard.png" target="_blank" rel="noopener" class="screenshot-link">View full size <span aria-hidden="true">↗</span></a></div><p class="workspace-note">Full application window with example data. Visible metrics depend on the connected account and database scope.</p></figcaption>
           </figure>
-          <figure class="workspace-panel" data-gallery-panel="sessions">
-            <div class="workspace-description"><span class="workspace-number">02 / SESSION ACTIVITY</span><h2>From a session<br> to its SQL.</h2><p>Filter active sessions and inspect parallel execution groups before opening the relevant SQL, waits or plan.</p><span class="workspace-tag">Filters &amp; periodic refresh</span><a href="assets/workspace-sessions.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
-            <div class="workspace-image"><img src="assets/workspace-sessions.png" width="1620" height="810" alt="MODWAI sessions view showing an active session and a parallel execution coordinator with its worker" loading="lazy"></div>
-            <figcaption>Application view with example data. Session visibility depends on the connected account and database scope.</figcaption>
+          <figure class="workspace-panel" data-gallery-panel="sql">
+            <a class="workspace-image" href="assets/workspace-sql.png" target="_blank" rel="noopener" aria-label="Open the full SQL worksheet screenshot"><img src="assets/workspace-sql.png" width="2400" height="1800" alt="Full MODWAI window showing an editable SQL query above its estimated execution plan, including a join, table access and index scan" loading="lazy"></a>
+            <figcaption><div class="workspace-description"><div><span class="workspace-number">02 / SQL &amp; EXECUTION PLANS</span><h2>The query and its plan.</h2></div><p>Read the SQL alongside its operation tree. Review optimizer estimates, inspect individual steps and compare a plan with a frozen snapshot.</p><a href="assets/workspace-sql.png" target="_blank" rel="noopener" class="screenshot-link">View full size <span aria-hidden="true">↗</span></a></div><p class="workspace-note">Full application window with example data. This view shows an optimizer estimate, not measured execution statistics.</p></figcaption>
           </figure>
-          <figure class="workspace-panel" data-gallery-panel="datapump">
-            <div class="workspace-description"><span class="workspace-number">03 / DATABASE OPERATIONS</span><h2>Exports, imports<br> and their jobs.</h2><p>Prepare a Data Pump operation, review the generated command and follow server-side jobs and logs.</p><span class="workspace-tag">Oracle DIRECTORY files</span><a href="assets/workspace-data-pump.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
-            <div class="workspace-image"><img src="assets/workspace-data-pump.png" width="1100" height="760" alt="MODWAI Data Pump export wizard in dark mode with operation, object scope, content and job identity settings" loading="lazy"></div>
-            <figcaption>Application view with example data. Dump and log files stay on the Oracle server.</figcaption>
+          <figure class="workspace-panel" data-gallery-panel="diagnostics">
+            <a class="workspace-image" href="assets/workspace-diagnostics.png" target="_blank" rel="noopener" aria-label="Open the full diagnostic graphs screenshot"><img src="assets/workspace-diagnostics.png" width="2400" height="1800" alt="Full MODWAI window with a diagnostic timeline comparing database load, foreground CPU and non-CPU database time over sampled intervals" loading="lazy"></a>
+            <figcaption><div class="workspace-description"><div><span class="workspace-number">03 / DIAGNOSTIC GRAPHS</span><h2>See activity over time.</h2></div><p>Follow sampled database load, CPU and non-CPU time. Zoom into an interval or switch to the blocking timeline for captured waiter details.</p><a href="assets/workspace-diagnostics.png" target="_blank" rel="noopener" class="screenshot-link">View full size <span aria-hidden="true">↗</span></a></div><p class="workspace-note">Full application window with example data. Database load is derived from interval counters; it is not host CPU utilization.</p></figcaption>
+          </figure>
+          <figure class="workspace-panel" data-gallery-panel="health">
+            <a class="workspace-image" href="assets/workspace-health.png" target="_blank" rel="noopener" aria-label="Open the full health checks screenshot"><img src="assets/workspace-health.png" width="2400" height="1800" alt="Full MODWAI window listing database health checks with statuses, diagnostic messages, detail buttons and optional AI actions" loading="lazy"></a>
+            <figcaption><div class="workspace-description"><div><span class="workspace-number">04 / HEALTH CHECKS</span><h2>Findings with context.</h2></div><p>Review checks across instance, object, security and storage conditions, then open the supporting details or an explanation of the check.</p><a href="assets/workspace-health.png" target="_blank" rel="noopener" class="screenshot-link">View full size <span aria-hidden="true">↗</span></a></div><p class="workspace-note">Full application window with example data. Results need database context; some checks require separate Oracle pack licenses.</p></figcaption>
           </figure>
         </div>
         <div class="product-strip"><span>Built around Oracle Database</span><span>Desktop application</span><span>Optional AI integration</span><span>macOS / Windows / Linux</span></div>
