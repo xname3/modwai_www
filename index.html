@@ -1,602 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0R4T850BG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-N0R4T850BG');
-  </script>
-  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MODWAI | Oracle Database Monitoring with AI Assistant</title>
-  <meta name="description" content="MODWAI is a desktop app for Oracle database monitoring, diagnostics, SQL optimization, and AI-assisted analysis with local and cloud AI options.">
+  <meta name="theme-color" content="#101216">
+  <meta name="color-scheme" content="dark">
+  <title>MODWAI — Oracle Database Monitoring &amp; SQL Tools</title>
+  <meta name="description" content="Monitor Oracle databases, run SQL and inspect execution plans from your desktop. MODWAI supports macOS, Windows and Linux, with optional AI assistance.">
+  <link rel="canonical" href="https://www.modwai.eu/">
+  <meta property="og:site_name" content="MODWAI">
+  <meta property="og:title" content="MODWAI — Oracle Database Monitoring &amp; SQL Tools">
+  <meta property="og:description" content="Monitor Oracle databases, run SQL and inspect execution plans from your desktop. For macOS, Windows and Linux, with optional AI assistance.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.modwai.eu/">
+  <meta property="og:image" content="https://www.modwai.eu/assets/workspace-plan.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1100">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="MODWAI execution plan viewer showing a cursor and operation tree with example data">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MODWAI — Oracle Database Monitoring &amp; SQL Tools">
+  <meta name="twitter:description" content="Monitor Oracle databases, run SQL and inspect execution plans from your desktop. For macOS, Windows and Linux, with optional AI assistance.">
+  <meta name="twitter:image" content="https://www.modwai.eu/assets/workspace-plan.png">
+  <meta name="twitter:image:alt" content="MODWAI execution plan viewer showing a cursor and operation tree with example data">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.modwai.eu/#organization",
+          "name": "MODWAI",
+          "url": "https://www.modwai.eu/"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.modwai.eu/#website",
+          "name": "MODWAI",
+          "url": "https://www.modwai.eu/",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://www.modwai.eu/#organization" }
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Local previews do not send website analytics.
+    if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.protocol !== 'file:') {
+      const analytics = document.createElement('script');
+      analytics.async = true;
+      analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-N0R4T850BG';
+      document.head.appendChild(analytics);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N0R4T850BG');
+    }
+  </script>
 </head>
 <body>
-  <header class="site-header">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header" id="top">
     <div class="container header-layout">
-      <a class="logo" href="#top">
-        <img src="assets/modwai-logo.svg" alt="MODWAI logo">
-      </a>
-      <nav class="site-nav" id="primary-navigation" data-nav>
-        <a href="#features">Features</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#download">Download</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+      <a class="logo" href="#top" aria-label="MODWAI home"><img src="assets/modwai-logo.svg" width="168" height="36" alt="MODWAI"></a>
+      <nav class="site-nav" id="primary-navigation" data-nav aria-label="Main navigation">
+        <a href="#features">Product</a><a href="#capabilities">Tools</a><a href="#ai">AI assistance</a><a href="#pricing">Pricing</a>
       </nav>
-      <a class="nav-cta" href="#download">Download now</a>
-      <button class="nav-toggle" data-nav-toggle aria-controls="primary-navigation" aria-expanded="false">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="sr-only">Toggle navigation</span>
-      </button>
+      <a class="nav-cta" href="#download">Download <span aria-hidden="true">↗</span></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-navigation" aria-expanded="false"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="sr-only">Toggle navigation</span></button>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="hero-slogan">
-            <span class="slogan-brand">MOD<span class="highlight">w</span>AI</span>
-            <span class="slogan-tagline">Because "it's slow again" isn't an answer.</span>
-            <div class="slogan-acronym">
-              <span class="acronym-line"><span class="letter-highlight">M</span>onitor</span>
-              <span class="acronym-line"><span class="letter-highlight">O</span>racle</span>
-              <span class="acronym-line"><span class="letter-highlight">D</span>atabase</span>
-              <span class="acronym-line"><span class="letter-highlight">w</span>ith</span>
-              <span class="acronym-line"><span class="letter-highlight">A</span>rtificial <span class="letter-highlight">I</span>ntelligence</span>
-            </div>
-            <span class="slogan-footer">That's <span class="brand-small">MOD<span class="highlight">w</span>AI</span>.</span>
-          </div>
-          <p class="hero-lede">
-            Connect to your Oracle database in 30 seconds. Get real-time monitoring, AI-powered execution plan analysis, and actionable optimization recommendations — all from a single desktop app. Choose local AI via Ollama when you need analysis to stay on your machine.
-          </p>
-          <ul class="hero-highlights">
-            <li>AI-powered execution plan analysis with one-click optimization recommendations</li>
-            <li>150+ pre-built monitoring queries — sessions, locks, storage, jobs, and more</li>
-            <li>Privacy-first workflow: run AI analysis locally via Ollama to minimize data exposure</li>
-            <li>Cross-platform native desktop app for macOS, Windows</li>
-          </ul>
-          <div class="hero-actions">
-            <a class="cta-button" href="#download">Download MODWAI</a>
-            <a class="ghost-button" href="#pricing">View pricing</a>
-          </div>
-          <div class="hero-note">
-            <span class="hero-note-badge">Free 7-day trial</span>
-            Available for macOS and Windows.
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="eyebrow"><span class="status-mark" aria-hidden="true"></span> A desktop workspace for Oracle</p>
+        <div class="hero-grid">
+          <h1 id="hero-title">A closer look at<br> your <em>database.</em></h1>
+          <div class="hero-copy">
+            <p class="hero-lede">Understand activity. Inspect SQL. Work through database tasks with the relevant details in view.</p>
+            <p>MODWAI brings Oracle monitoring, diagnostics and selected administration tools into one desktop application, with AI assistance when you choose to use it.</p>
+            <div class="hero-actions"><a class="cta-button" href="#download">Get MODWAI <span aria-hidden="true">↗</span></a><a class="text-link" href="#features">Explore the workspace <span aria-hidden="true">↓</span></a></div>
+            <p class="platform-note">macOS <span>·</span> Windows <span>·</span> Linux</p>
           </div>
         </div>
-        <div class="hero-visual">
-          <div class="hero-dashboard">
-            <div class="dashboard-header">
-              <span class="status-dot is-online"></span>
-              <span class="dashboard-title">Oracle 19c Production</span>
-              <span class="dashboard-status">Connected</span>
-            </div>
-            <div class="dashboard-body">
-              <div class="metric-card">
-                <span class="metric-label">Active sessions</span>
-                <span class="metric-value">24</span>
-                <span class="metric-change is-positive">1 blocker, 3 waiting sessions</span>
-              </div>
-              <div class="metric-card">
-                <span class="metric-label">Database time</span>
-                <span class="metric-value">68%</span>
-                <span class="metric-change is-positive">CPU-bound workload</span>
-              </div>
-              <div class="metric-card">
-                <span class="metric-label">Top wait event</span>
-                <span class="metric-value">User I/O</span>
-                <span class="metric-change is-positive">db file sequential read</span>
-              </div>
-            </div>
-          </div>
+
+        <div class="workspace-gallery" id="console" data-gallery>
+          <div class="gallery-heading"><span class="eyebrow">Inside the workspace</span><div class="gallery-controls" role="group" aria-label="Choose an application view"><button type="button" data-gallery-tab="plans" aria-pressed="true">Execution plans</button><button type="button" data-gallery-tab="sessions" aria-pressed="false">Sessions</button><button type="button" data-gallery-tab="datapump" aria-pressed="false">Data Pump</button></div></div>
+          <figure class="workspace-panel" data-gallery-panel="plans">
+            <div class="workspace-description"><span class="workspace-number">01 / SQL DIAGNOSTICS</span><h2>Follow the plan.<br> Keep the context.</h2><p>Explore the operation tree, available runtime statistics and captured bind values for a selected cursor.</p><span class="workspace-tag">Plan tree &amp; source text</span><a href="assets/workspace-plan.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
+            <div class="workspace-image"><img src="assets/workspace-plan.png" width="1100" height="720" alt="MODWAI execution plan viewer with a cached child cursor, operation tree, row counts and inspection hints" fetchpriority="high"></div>
+            <figcaption>Application view with example data. Runtime statistics and captured binds depend on what Oracle has collected.</figcaption>
+          </figure>
+          <figure class="workspace-panel" data-gallery-panel="sessions">
+            <div class="workspace-description"><span class="workspace-number">02 / SESSION ACTIVITY</span><h2>From a session<br> to its SQL.</h2><p>Filter active sessions and inspect parallel execution groups before opening the relevant SQL, waits or plan.</p><span class="workspace-tag">Filters &amp; periodic refresh</span><a href="assets/workspace-sessions.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
+            <div class="workspace-image"><img src="assets/workspace-sessions.png" width="1620" height="810" alt="MODWAI sessions view showing an active session and a parallel execution coordinator with its worker" loading="lazy"></div>
+            <figcaption>Application view with example data. Session visibility depends on the connected account and database scope.</figcaption>
+          </figure>
+          <figure class="workspace-panel" data-gallery-panel="datapump">
+            <div class="workspace-description"><span class="workspace-number">03 / DATABASE OPERATIONS</span><h2>Exports, imports<br> and their jobs.</h2><p>Prepare a Data Pump operation, review the generated command and follow server-side jobs and logs.</p><span class="workspace-tag">Oracle DIRECTORY files</span><a href="assets/workspace-data-pump.png" target="_blank" rel="noopener" class="screenshot-link">Open full-size view <span aria-hidden="true">↗</span></a></div>
+            <div class="workspace-image"><img src="assets/workspace-data-pump.png" width="1100" height="760" alt="MODWAI Data Pump export wizard in dark mode with operation, object scope, content and job identity settings" loading="lazy"></div>
+            <figcaption>Application view with example data. Dump and log files stay on the Oracle server.</figcaption>
+          </figure>
         </div>
+        <div class="product-strip"><span>Built around Oracle Database</span><span>Desktop application</span><span>Optional AI integration</span><span>macOS / Windows / Linux</span></div>
       </div>
     </section>
 
-    <section class="section features-section" id="features">
+    <section class="section" id="features" aria-labelledby="features-title">
       <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Everything you need for Oracle monitoring</h2>
-            <p class="section-lede">A comprehensive toolkit for database professionals — from real-time dashboards to AI-powered analysis.</p>
-          </div>
-        </div>
+        <div class="section-heading"><div><p class="eyebrow">01 / The everyday workspace</p><h2 id="features-title">The details you need.<br> A place to work with them.</h2></div><p class="section-intro">Move between database activity, SQL and diagnostic results without assembling a separate set of tools for each question.</p></div>
         <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M8 6a4 4 0 0 1 8 0"/><path d="M17 12.5c1.77.5 3 1.79 3 3.5 0 2.21-2.69 4-6 4"/><path d="M7 12.5C5.23 13 4 14.29 4 16c0 2.21 2.69 4 6 4"/></svg>
-            </div>
-            <h3>AI-Powered Analysis</h3>
-            <p>One-click AI analysis of execution plans with concrete optimization recommendations. 10+ detection algorithms catch common Oracle performance anti-patterns automatically.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3>Privacy-First</h3>
-            <p>AI analysis can run locally via Ollama to minimize data exposure. Credentials are stored encrypted, and MODWAI does not collect telemetry.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-            </div>
-            <h3>150+ Pre-built Queries</h3>
-            <p>Comprehensive monitoring SQL library covering sessions, locks, storage, memory, jobs, and system performance. No need to write monitoring queries from scratch.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3>Cross-Platform</h3>
-            <p>Native desktop app for macOS, Windows. Same experience everywhere. Supports Oracle Database 19c and higher, including RAC and Pluggable Databases.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <h3>Real-Time Dashboards</h3>
-            <p>Visual health monitoring with interactive charts — CPU, memory (SGA/PGA), I/O, session trends, and wait event distribution with configurable auto-refresh.</p>
-          </article>
-          <article class="feature-card">
-            <div class="feature-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            </div>
-            <h3>Excel-Style Filters</h3>
-            <p>Filter any query result like a spreadsheet — dropdown filters, multi-select checkboxes, search, and combine multiple column filters simultaneously.</p>
-          </article>
+          <article class="feature-card"><span class="feature-index">01</span><h3>Monitor database activity</h3><p>Inspect sessions, waits, blockers, memory, I/O and storage. Use the instance dashboard and built-in SQL reports with configurable refresh intervals.</p><span class="feature-detail">Sessions · Instance dashboard · Waits</span></article>
+          <article class="feature-card"><span class="feature-index">02</span><h3>Work with SQL &amp; PL/SQL</h3><p>Run statements in tabbed worksheets with bind variables, query history and DBMS_OUTPUT. Filter results, export data and manage transactions explicitly.</p><span class="feature-detail">Worksheets · Results · CSV &amp; JSON</span></article>
+          <article class="feature-card"><span class="feature-index">03</span><h3>Inspect execution plans</h3><p>Explore estimated and cached cursor plans, compare a plan with a frozen snapshot and inspect available execution statistics. Highlighted operations are starting points for investigation.</p><span class="feature-detail">Plan comparison · Cursor context · Binds</span></article>
+          <article class="feature-card"><span class="feature-index">04</span><h3>Record a period of activity</h3><p>Sample session activity into a local recording, then review waits, active SQL and changes over that interval. Compare recordings when investigating a change. Explore available Statspack reports for historical context.</p><span class="feature-detail">Local sampling · Review · Comparison</span></article>
+          <article class="feature-card"><span class="feature-index">05</span><h3>Run focused health checks</h3><p>Review checks for instance, SQL and storage conditions, with supporting details and explanations. Results help direct investigation; they need database context.</p><span class="feature-detail">Findings · Detail queries · Explanations</span></article>
+          <article class="feature-card"><span class="feature-index">06</span><h3>Explore objects &amp; metadata</h3><p>Browse schemas and objects, inspect DDL and source, and review database reports covering users, privileges, Scheduler definitions and available APEX/ORDS metadata.</p><span class="feature-detail">Object explorer · DDL · Database reports</span></article>
         </div>
+        <p class="section-note"><span aria-hidden="true">↳</span> Available views and actions depend on Oracle version, account privileges and the connected database or container.</p>
       </div>
     </section>
 
-    <section class="section product-overview" id="console">
-      <div class="container product-layout">
-        <div class="product-copy">
-          <h2 class="section-title">Deep Oracle Monitoring with AI Guidance</h2>
-          <p class="section-lede">
-            MODWAI surfaces the metrics that matter &mdash; from active sessions and locks to color-coded execution plans &mdash; and layers in AI-driven recommendations so your team can tune databases before issues escalate.
-          </p>
-          <ul class="product-points">
-            <li>Track sessions, wait events, locks, and PGA usage with auto-refresh and 150+ pre-built queries.</li>
-            <li>Color-coded execution plans with automatic detection of full table scans, cartesian joins, and memory issues.</li>
-            <li>Right-click any session for instant actions: kill, view SQL, analyze with AI.</li>
-            <li>Export results to CSV, Excel, or clipboard. Export plans as PNG, JSON, or PDF.</li>
-          </ul>
-        </div>
-        <div class="product-screens">
-          <figure class="product-screen">
-            <img src="assets/modwai-session-overview.png" alt="MODWAI session overview with active sessions and filters" loading="lazy">
-            <figcaption>Session catalog with contextual filters and auto refresh.</figcaption>
-          </figure>
-          <figure class="product-screen">
-            <img src="assets/modwai-sql-plan.png" alt="MODWAI SQL execution plan analysis with AI insights" loading="lazy">
-            <figcaption>SQL plan exploration with AI-powered optimization tips.</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="section capabilities-section" id="capabilities">
+    <section class="section tools-section" id="capabilities" aria-labelledby="tools-title">
       <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Key Capabilities in Detail</h2>
-            <p class="section-lede">Deep-dive into the features that make MODWAI the most comprehensive Oracle monitoring tool.</p>
-          </div>
-        </div>
-
-        <div class="capability-grid">
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M8 6a4 4 0 0 1 8 0"/><path d="M17 12.5c1.77.5 3 1.79 3 3.5 0 2.21-2.69 4-6 4"/><path d="M7 12.5C5.23 13 4 14.29 4 16c0 2.21 2.69 4 6 4"/></svg>
-            </div>
-            <h3>AI-Powered Execution Plan Analysis</h3>
-            <p>Press one button and get a summary of what the query does, issues identified (full table scans, cartesian joins, memory problems), and top 3 actionable recommendations with expected performance impact.</p>
-            <ul class="capability-details">
-              <li><strong>10+ detection algorithms</strong> automatically catch common Oracle performance anti-patterns</li>
-              <li><strong>Color-coded plans</strong> — red for critical (full scans, cartesian joins), orange for warnings (sorts, nested loops), blue for info</li>
-              <li><strong>3 AI provider options:</strong> MODWAI Proxy (zero config), own API keys (GPT-4, Claude, DeepSeek, Gemini), or local Ollama (100% offline)</li>
-            </ul>
-          </article>
-
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3>Session Recording</h3>
-            <p>Like a flight recorder for your Oracle database. Samples active sessions at configurable intervals (0.5–10s) and builds a complete picture of activity.</p>
-            <ul class="capability-details">
-              <li><strong>Recording templates:</strong> Quick Check (1 min), Standard (5 min), Extended (15 min), Long Analysis (30 min)</li>
-              <li><strong>Live dashboard:</strong> CPU vs Wait chart, top wait events, top SQL by activity, active sessions table</li>
-              <li><strong>Data captured:</strong> session snapshots, wait histograms, SQL statistics, execution plans for top 100 SQL_IDs</li>
-              <li><strong>AI analysis:</strong> one-click summary with bottleneck identification, root causes, and 3 specific recommendations</li>
-            </ul>
-          </article>
-
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <h3>Real-Time Instance Dashboard</h3>
-            <p>Visual overview of database health at a glance with interactive line, donut, and bar charts. Configurable auto-refresh intervals with historical data tracking.</p>
-            <ul class="capability-details">
-              <li><strong>CPU usage and trends</strong> — track utilization patterns over time</li>
-              <li><strong>Memory utilization</strong> — SGA/PGA statistics, buffer cache, memory advisor</li>
-              <li><strong>Disk I/O statistics</strong> — physical reads, writes, and redo log activity</li>
-              <li><strong>Session &amp; wait analysis</strong> — session count trends and wait event distribution</li>
-            </ul>
-          </article>
-
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            </div>
-            <h3>Health Check System</h3>
-            <p>Automated database configuration analysis with AI-powered remediation recommendations. Get CRITICAL / WARNING / OK status indicators for common issues.</p>
-            <ul class="capability-details">
-              <li><strong>Pre-defined checks:</strong> archive log mode, parameters, backup status, license utilization, performance baselines</li>
-              <li><strong>ASH activity analysis</strong> and AWR top SQL assessment</li>
-              <li><strong>AI recommendations</strong> — detailed findings with step-by-step fixes</li>
-              <li><strong>Average Active Sessions (AAS)</strong> monitoring for workload characterization</li>
-            </ul>
-          </article>
-
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </div>
-            <h3>ASH &amp; AWR Analysis</h3>
-            <p>Full ASH/AWR analysis interface with 7 dedicated tabs for environments with Oracle Diagnostic Pack license. Deep historical performance analysis up to 8 days.</p>
-            <ul class="capability-details">
-              <li><strong>Real-time ASH</strong> — live V$ACTIVE_SESSION_HISTORY with filters by user, SQL_ID, and time range</li>
-              <li><strong>AWR Snapshots</strong> — browse, compare two snapshots side-by-side, see delta statistics (DB time, CPU, commits, I/O)</li>
-              <li><strong>Top SQL &amp; SQL Analytics</strong> — sorted by elapsed time, CPU, buffer gets, disk reads, with performance trending charts</li>
-              <li><strong>Blocking analysis</strong> — blocking chain visualization with durations and transaction IDs</li>
-              <li><strong>AWR Reports</strong> — generate full HTML AWR reports directly from the app</li>
-            </ul>
-          </article>
-
-          <article class="capability-card">
-            <div class="capability-icon">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-            </div>
-            <h3>Statspack Analysis</h3>
-            <p>For environments without Diagnostic Pack, MODWAI provides Statspack-based performance analysis — an alternative to AWR that works on all Oracle editions including Standard Edition.</p>
-            <ul class="capability-details">
-              <li><strong>Snapshot management</strong> — browse, compare, and analyze Statspack snapshots</li>
-              <li><strong>Top SQL identification</strong> — find resource-intensive queries by elapsed time, buffer gets, and disk reads</li>
-              <li><strong>System statistics</strong> — DB time, CPU usage, I/O metrics, and wait event analysis between snapshots</li>
-              <li><strong>AI-powered interpretation</strong> — automatic analysis of Statspack data with actionable recommendations</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="capability-extras">
-          <div class="extra-item">
-            <h4>Session Management</h4>
-            <p>Right-click context menu: Kill Session, View Details, Show Current/Previous SQL, Session Waits, All Cursors, AI Analysis.</p>
-          </div>
-          <div class="extra-item">
-            <h4>Object Explorer</h4>
-            <p>Browse tables, views, sequences, procedures. View columns, constraints, indexes, DDL generation, and object statistics.</p>
-          </div>
-          <div class="extra-item">
-            <h4>SQL Editor</h4>
-            <p>Syntax highlighting, auto-formatting, query history, execute from cursor (Ctrl+Enter), multiple result view modes.</p>
-          </div>
-          <div class="extra-item">
-            <h4>Custom Queries</h4>
-            <p>Drop .sql files into ~/.modwai/custom_queries/ — automatic detection with full feature support: export, AI analysis, filtering.</p>
-          </div>
+        <div class="section-heading"><div><p class="eyebrow">02 / Beyond observation</p><h2 id="tools-title">Tools for the next step.</h2></div><p class="section-intro">Prepare database operations in dedicated workspaces, with the target, settings and command available for review.</p></div>
+        <div class="tool-list">
+          <article class="tool-row"><div class="tool-name"><span class="tool-symbol" aria-hidden="true">⇄</span><h3>Oracle Data Pump</h3></div><div><p>Configure server-side exports and imports, inspect source objects in a dump, reuse templates and follow job status and logs.</p><p class="tool-boundary">Dump and log files use Oracle DIRECTORY objects on the server. This is not a file transfer to your desktop.</p></div><span class="tool-label">Export / Import</span></article>
+          <article class="tool-row"><div class="tool-name"><span class="tool-symbol" aria-hidden="true">◷</span><h3>Maintenance &amp; storage</h3></div><div><p>Inspect automatic maintenance tasks and windows, review optimizer statistics operations and prepare editable scripts for adding tablespace files.</p><p class="tool-boundary">Administrative actions require the relevant database privileges. Review generated SQL before applying a change.</p></div><span class="tool-label">Review / Prepare</span></article>
+          <article class="tool-row"><div class="tool-name"><span class="tool-symbol" aria-hidden="true">⌘</span><h3>Oracle Cloud tools</h3></div><div><p>Inspect OCI Base Database systems, metrics and work requests. Prepare supported OCPU changes, backups and one-off scheduled operations through OCI CLI.</p><p class="tool-boundary">Requires OCI CLI configuration and permissions. Scheduled OCI operations need MODWAI to remain running.</p></div><span class="tool-label">Inspect / Operate</span></article>
         </div>
       </div>
     </section>
 
-    <section class="section download-section" id="download">
+    <section class="section ai-section" id="ai" aria-labelledby="ai-title">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Download MODWAI</h2>
-          <p class="section-lede">Get the latest version for your operating system and start monitoring your Oracle databases.</p>
+        <div class="section-heading"><div><p class="eyebrow">03 / Optional assistance</p><h2 id="ai-title">Another perspective.<br> <em>Your judgement.</em></h2></div><div class="section-intro"><p>Ask AI to help interpret an execution plan, selected diagnostic results or session recording. Use its response as an explanation or a proposal to investigate.</p><p class="ai-restraint">AI output can be incomplete or incorrect. Review recommendations and generated SQL before use.</p></div></div>
+        <div class="ai-options">
+          <article><span class="option-number">01</span><h3>Local Ollama</h3><p>Use a model served by your own Ollama instance. With a local endpoint, AI inference runs on your machine.</p></article>
+          <article><span class="option-number">02</span><h3>Your own provider</h3><p>Connect a supported provider with your API key. Analysis context is sent to that provider, under its terms and usage charges.</p></article>
+          <article><span class="option-number">03</span><h3>MODWAI Proxy</h3><p>Use the MODWAI service with an eligible subscription. Requests pass through our backend to the selected AI provider and use plan credits.</p></article>
         </div>
+        <div class="ai-data-note"><span class="eyebrow">Know what you share</span><p>Depending on the analysis and settings, prompts may include SQL, object names and diagnostic details. Prompt preview and SQL-sharing controls help you review the context. Subscription verification still requires an online connection.</p></div>
+      </div>
+    </section>
+
+    <section class="section download-section" id="download" aria-labelledby="download-title">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">04 / On your desktop</p><h2 id="download-title">Choose your platform.</h2></div><p class="section-intro">Download the current release, then connect using your Oracle account. Database access requires an active subscription or trial.</p></div>
         <div class="download-grid">
-          <article class="download-card" data-os="mac">
-            <div class="download-icon">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.16 40 8 32.84 8 24C8 15.16 15.16 8 24 8C32.84 8 40 15.16 40 24C40 32.84 32.84 40 24 40Z" fill="currentColor"/>
-                <path d="M24 14L24 28M24 28L18 22M24 28L30 22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 34H32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>macOS</h3>
-            <p>Compatible with macOS 10.15 or later</p>
-            <a class="cta-button" href="https://github.com/xname3/MODWAI_downloads/releases/latest/download/MODWAI-Installer.dmg" download>
-              Download for Mac
-            </a>
-            <p class="download-note">.dmg installer • Apple Silicon & Intel</p>
-          </article>
-          <article class="download-card" data-os="windows">
-            <div class="download-icon">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 8H18V18H8V8Z" fill="currentColor"/>
-                <path d="M30 8H40V18H30V8Z" fill="currentColor"/>
-                <path d="M8 30H18V40H8V30Z" fill="currentColor"/>
-                <path d="M30 30H40V40H30V30Z" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3>Windows</h3>
-            <p>Compatible with Windows 10 or later</p>
-            <a class="cta-button" href="https://github.com/xname3/MODWAI_downloads/releases/latest/download/MODWAI-Setup.exe" download>
-              Download for Windows
-            </a>
-            <p class="download-note">.exe installer • 64-bit</p>
-          </article>
-          <!-- TEMPORARILY DISABLED - Linux versions not yet tested
-          <article class="download-card" data-os="linux-deb">
-            <div class="download-icon">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 4L4 14V34L24 44L44 34V14L24 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                <path d="M24 4V44M4 14L24 24L44 14M4 34L24 24M44 34L24 24" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3>Linux (DEB)</h3>
-            <p>Debian, Ubuntu, and derivatives</p>
-            <a class="cta-button" href="https://github.com/xname3/MODWAI_downloads/releases/latest/download/MODWAI_amd64.deb" download>
-              Download DEB package
-            </a>
-            <p class="download-note">.deb package • AMD64</p>
-          </article>
-          <article class="download-card" data-os="linux-rpm">
-            <div class="download-icon">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 4L4 14V34L24 44L44 34V14L24 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
-                <circle cx="24" cy="24" r="8" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3>Linux (RPM)</h3>
-            <p>Fedora, RHEL, CentOS, and derivatives</p>
-            <a class="cta-button" href="https://github.com/xname3/MODWAI_downloads/releases/latest/download/MODWAI_x86_64.rpm" download>
-              Download RPM package
-            </a>
-            <p class="download-note">.rpm package • x86_64</p>
-          </article>
-          END TEMPORARILY DISABLED -->
+          <article class="download-card" data-os="mac"><div class="download-top"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="18" rx="2"/><path d="M11 28h10M16 23v5"/></svg><span class="platform-format">.dmg</span></div><h3>macOS</h3><p>Desktop installer</p><a class="download-button" href="https://github.com/xname3/modwai_downloads/releases/latest/download/MODWAI-Installer.dmg">Download for macOS <span aria-hidden="true">↓</span></a><span class="download-note">Open the disk image to install MODWAI.</span></article>
+          <article class="download-card" data-os="windows"><div class="download-top"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 5l11-1v11H3zM18 4l11-1v12H18zM3 19h11v10L3 28zM18 19h11v12l-11-1z"/></svg><span class="platform-format">.exe</span></div><h3>Windows</h3><p>64-bit desktop installer</p><a class="download-button" href="https://github.com/xname3/modwai_downloads/releases/latest/download/MODWAI-Setup.exe">Download for Windows <span aria-hidden="true">↓</span></a><span class="download-note">Install using the setup application.</span></article>
+          <article class="download-card" data-os="linux"><div class="download-top"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="5" width="26" height="22" rx="2"/><path d="M8 12l5 4-5 4M17 21h7"/></svg><span class="platform-format">.tar.gz</span></div><h3>Linux</h3><p>x86-64 application archive</p><a class="download-button" href="https://github.com/xname3/modwai_downloads/releases/latest/download/MODWAI-Linux.tar.gz">Download for Linux <span aria-hidden="true">↓</span></a><span class="download-note">Extract the archive to get started.</span></article>
         </div>
+        <div class="download-help"><details><summary>Linux launch instructions</summary><p>Extract the archive, keeping its directory structure, then launch the executable:</p><pre><code>tar -xzf MODWAI-Linux.tar.gz
+./MODWAI/MODWAI</code></pre><p>A graphical desktop and compatible system libraries are required. If the application does not start, run it from a terminal and include the error when contacting support.</p></details></div>
       </div>
     </section>
 
-    <section class="section" id="pricing">
+    <section class="section pricing-section" id="pricing" aria-labelledby="pricing-title">
       <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Monthly Subscription Plans</h2>
-            <p class="section-lede">Flexible monthly billing - cancel anytime. Pick a plan that fits your requirements.</p>
-          </div>
-          <!-- TEMPORARILY DISABLED - Annual billing toggle
-          <div class="billing-toggle" role="group" aria-label="Toggle billing cadence" data-billing-toggle>
-            <button type="button" class="toggle-button is-active" data-billing-option="monthly" aria-pressed="true">Monthly</button>
-            <button type="button" class="toggle-button" data-billing-option="annual" aria-pressed="false">Annual &middot; Save more</button>
-          </div>
-          END TEMPORARILY DISABLED -->
-        </div>
-
-        <div class="pricing-grid">
-          <article class="plan-card" data-plan-card
+        <div class="section-heading"><div><p class="eyebrow">05 / Subscriptions</p><h2 id="pricing-title">Choose how you work.</h2></div><p class="section-intro">Personal subscriptions, billed monthly. Select a plan for current pricing and any available trial at checkout.</p></div>
+        <div class="pricing-grid"><article class="plan-card" data-plan-card
             data-monthly-id="pri_01kabyyn82g7hw52mj37v68f2p"
             data-annual-id="pri_01kabyyn82g7hw52mj37v68f2p"
             data-monthly-sandbox-id="pri_01k8dxd4qvr1wnrd1c34dhbh5y"
             data-annual-sandbox-id="pri_01k8e7g8bgwzn80gjaakfgabfe"
-            data-monthly-label="Loading..."
-            data-annual-label="Loading..."
-            data-monthly-cta="BASIC"
-            data-annual-cta="BASIC">
-            <div class="plan-header">
-              <span class="plan-tier">MODWAI BASIC</span>
-              <p>For teams that want the full monitoring toolkit and prefer to use their own AI provider.</p>
-            </div>
-            <div class="plan-price">
-              <span class="plan-amount" data-price-label>Loading...</span>
-              <span class="plan-billing-copy" data-billing-copy data-monthly-copy="Bring your own AI keys. Cancel anytime." data-annual-copy="Bring your own AI keys.">Bring your own AI keys. Cancel anytime.</span>
-            </div>
-            <ul class="plan-features">
-              <li>All monitoring &amp; diagnostics</li>
-              <li>150+ pre-built SQL queries</li>
-              <li>SQL Editor</li>
-              <li>Data export (CSV, Excel)</li>
-              <li>Object Explorer</li>
-              <li>Excel-style column filters</li>
-              <li>Session recording / ASH / AWR*</li>
-              <li>Advanced performance monitoring</li>
-              <li>AI with own API keys (OpenAI, Anthropic, DeepSeek, Gemini)</li>
-            </ul>
-            <a class="checkout-btn" data-price-id="" data-plan="MODWAI BASIC">BASIC</a>
-            <p class="plan-note">Need onboarding help? <a href="#contact">Talk to us</a>.</p>
-          </article>
-
-          <article class="plan-card is-featured" data-plan-card
+            data-monthly-label="See price at checkout"
+            data-annual-label="See price at checkout"
+            data-monthly-cta="Choose Basic"
+            data-annual-cta="Choose Basic">
+              <span class="plan-tier">BASIC</span>
+              <h3>Your own AI setup.</h3><p class="plan-description">Core Oracle tools with your own AI provider or a local Ollama instance.</p>
+              <div class="plan-price"><span class="plan-amount" data-price-label>See price at checkout</span><span class="plan-billing-copy" data-billing-copy data-monthly-copy="Monthly subscription · per user" data-annual-copy="Per user">Monthly subscription · per user</span></div>
+              <ul class="check-list"><li>Monitoring, diagnostics and SQL worksheets</li><li>Session recording and database reports</li><li>AI with your own provider or Ollama</li></ul>
+              <a class="checkout-btn" href="https://buy.paddle.com/checkout/prices/pri_01kabyyn82g7hw52mj37v68f2p?guest=1" target="_blank" rel="noopener noreferrer" data-price-id="" data-plan="MODWAI BASIC">Choose Basic<span aria-hidden="true">↗</span></a>
+            </article>
+<article class="plan-card" data-plan-card
             data-monthly-id="pri_01kabz0rgter4ybbxat5yypgqp"
             data-annual-id="pri_01kabz0rgter4ybbxat5yypgqp"
             data-monthly-sandbox-id="pri_01k8dxeca4wc8dwndkvaxk1xtq"
             data-annual-sandbox-id="pri_01k8e7hqxbc8expmheydy3p8tv"
-            data-monthly-label="Loading..."
-            data-annual-label="Loading..."
-            data-monthly-cta="PRO"
-            data-annual-cta="PRO">
-            <div class="plan-header">
-              <span class="plan-tier">MODWAI PRO</span>
-              <p>For individual DBAs and small teams that want built-in AI without managing external API keys.</p>
-            </div>
-            <div class="plan-price">
-              <span class="plan-amount" data-price-label>Loading...</span>
-              <span class="plan-billing-copy" data-billing-copy data-monthly-copy="Includes MODWAI Proxy AI requests each month." data-annual-copy="Includes MODWAI Proxy AI requests.">Includes MODWAI Proxy AI requests each month.</span>
-            </div>
-            <ul class="plan-features">
-              <li>Everything included in BASIC</li>
-              <li>AI via MODWAI Proxy — 150 requests/month</li>
-            </ul>
-            <a class="checkout-btn" data-price-id="" data-plan="MODWAI PRO">PRO</a>
-          </article>
-
-          <article class="plan-card" data-plan-card
+            data-monthly-label="See price at checkout"
+            data-annual-label="See price at checkout"
+            data-monthly-cta="Choose Pro"
+            data-annual-cta="Choose Pro">
+              <span class="plan-tier">PRO</span>
+              <h3>AI through MODWAI.</h3><p class="plan-description">The core tools, with access to AI through the MODWAI service.</p>
+              <div class="plan-price"><span class="plan-amount" data-price-label>See price at checkout</span><span class="plan-billing-copy" data-billing-copy data-monthly-copy="Monthly subscription · per user" data-annual-copy="Per user">Monthly subscription · per user</span></div>
+              <ul class="check-list"><li>Everything in Basic</li><li>MODWAI Proxy with a monthly AI credit allowance</li><li>No separate provider API key needed for Proxy</li></ul>
+              <a class="checkout-btn" href="https://buy.paddle.com/checkout/prices/pri_01kabz0rgter4ybbxat5yypgqp?guest=1" target="_blank" rel="noopener noreferrer" data-price-id="" data-plan="MODWAI PRO">Choose Pro<span aria-hidden="true">↗</span></a>
+            </article>
+<article class="plan-card" data-plan-card
             data-monthly-id="pri_01kabz2axhm6vacm5h8mxzpmy0"
             data-annual-id="pri_01kabz2axhm6vacm5h8mxzpmy0"
             data-monthly-sandbox-id="pri_01k8dxk5e3nsnq9zeatcxtjy4n"
             data-annual-sandbox-id="pri_01k8e7kh6g9acdtr82pczkm414"
-            data-monthly-label="Loading..."
-            data-annual-label="Loading..."
-            data-monthly-cta="ENTERPRISE"
-            data-annual-cta="ENTERPRISE">
-            <div class="plan-header">
-              <span class="plan-tier">MODWAI ENTERPRISE</span>
-              <p>For production teams that need higher AI capacity, advanced analysis, and more control over the workflow.</p>
-            </div>
-            <div class="plan-price">
-              <span class="plan-amount" data-price-label>Loading...</span>
-              <span class="plan-billing-copy" data-billing-copy data-monthly-copy="Higher AI capacity with advanced feature access." data-annual-copy="Higher AI capacity with advanced feature access.">Higher AI capacity with advanced feature access.</span>
-            </div>
-            <ul class="plan-features">
-              <li>Everything included in PRO</li>
-              <li>AI via MODWAI Proxy — 250 requests/month</li>
-              <li>Custom AI model selection</li>
-              <li>SQL Script view &amp; edit</li>
-            </ul>
-            <a class="checkout-btn" data-price-id="" data-plan="MODWAI ENTERPRISE">ENTERPRISE</a>
-            <p class="plan-note">Custom procurement? <a href="#contact">Contact sales</a>.</p>
-          </article>
-        </div>
-        <p class="pricing-footnote">
-          *Session Recording works on all Oracle editions and does not require Diagnostic Pack. ASH/AWR analysis depends on Oracle Diagnostic Pack licensing.<br>
-          Paddle handles secure billing as Merchant of Record. Taxes are calculated automatically at checkout.
-        </p>
+            data-monthly-label="See price at checkout"
+            data-annual-label="See price at checkout"
+            data-monthly-cta="Choose Enterprise"
+            data-annual-cta="Choose Enterprise">
+              <span class="plan-tier">ENTERPRISE</span>
+              <h3>More control over report SQL.</h3><p class="plan-description">For users who also want to inspect and adapt the bundled monitoring queries.</p>
+              <div class="plan-price"><span class="plan-amount" data-price-label>See price at checkout</span><span class="plan-billing-copy" data-billing-copy data-monthly-copy="Monthly subscription · per user" data-annual-copy="Per user">Monthly subscription · per user</span></div>
+              <ul class="check-list"><li>Everything in Pro</li><li>View and edit bundled monitoring SQL</li><li>MODWAI Proxy with a monthly AI credit allowance</li></ul>
+              <a class="checkout-btn" href="https://buy.paddle.com/checkout/prices/pri_01kabz2axhm6vacm5h8mxzpmy0?guest=1" target="_blank" rel="noopener noreferrer" data-price-id="" data-plan="MODWAI ENTERPRISE">Choose Enterprise<span aria-hidden="true">↗</span></a>
+            </article></div>
+        <p class="pricing-footnote">MODWAI Proxy uses credits; the cost of a request depends on the model. Your current allowance is shown in the app. Provider charges for your own API keys are separate. Final pricing and taxes are shown at Paddle checkout.</p>
       </div>
     </section>
 
-    <section class="section security-section" id="security">
-      <div class="container">
-        <h2 class="section-title">Security &amp; Privacy</h2>
-        <p class="section-lede">Encrypted credential storage, local AI options via Ollama, and clear choices about the information sent for AI analysis.</p>
-        <div class="security-grid">
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h4>Encrypted Passwords</h4>
-            <p>Fernet symmetric encryption for all stored credentials</p>
-          </div>
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h4>HMAC Authentication</h4>
-            <p>Challenge-response auth — no API keys stored in plain text</p>
-          </div>
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h4>JWT Tokens</h4>
-            <p>Short-lived 1-hour session tokens for API communication</p>
-          </div>
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <h4>Rate Limiting</h4>
-            <p>Protection against API abuse — 10 requests/min per device</p>
-          </div>
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h4>Local AI Processing</h4>
-            <p>Zero cloud data exposure when using Ollama for analysis</p>
-          </div>
-          <div class="security-item">
-            <div class="security-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </div>
-            <h4>Subscription &amp; Usage Data</h4>
-            <p>Subscription verification uses your email and device ID. MODWAI Proxy tracks request credits and token usage to enforce your plan, and may retain operational request metadata.</p>
-          </div>
-        </div>
-      </div>
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-layout"><div><p class="eyebrow">Before you connect</p><h2 id="faq-title">A few useful details.</h2><p class="faq-intro">For questions about your environment,<br> <a href="mailto:hello@modwai.eu">get in touch</a>.</p></div><div class="faq-list">
+        <details><summary>Which Oracle environments can I use?</summary><p>MODWAI targets Oracle Database 19c and later and includes views for RAC and pluggable databases. Available reports and operations depend on the Oracle version, edition, container and account privileges.</p></details>
+        <details><summary>Do I need Oracle Instant Client?</summary><p>Basic connections use the driver's Thin mode without a separate Oracle Client installation. Thick mode is also available for connections that need Oracle Client features and requires a compatible client installation.</p></details>
+        <details><summary>Does every feature need Diagnostics Pack?</summary><p>No. MODWAI has its own session sampling and recording workflow. Statspack analysis is also available where Statspack is configured. Oracle ASH and AWR features are separate and require the appropriate Oracle Diagnostics Pack entitlement. Other Oracle operations may also have edition or licensing requirements.</p></details>
+        <details><summary>What leaves my computer when I use AI?</summary><p>Cloud AI receives the prompt and the diagnostic context included for that analysis, which may contain SQL, object names or diagnostic detail rows. MODWAI Proxy routes this through our backend; own-key connections send it to your provider. A locally hosted Ollama endpoint keeps inference local. Review your settings and prompts before sharing sensitive context.</p></details>
+        <details><summary>Does MODWAI change my database automatically?</summary><p>Monitoring reports read database information. SQL worksheets and administration tools can make changes when you run them with the necessary permissions. Data Pump, maintenance and OCI workflows provide command review steps; OCI also has optional immediate execution settings. AI responses are suggestions for you to review.</p></details>
+        <details><summary>How do I activate a subscription?</summary><p>After checkout, open Settings → Subscription in MODWAI. Enter the checkout email address, request a registration key and verify the emailed key in the app. Each subscription is for one user.</p></details>
+      </div></div>
     </section>
 
-    <section class="section" id="faq">
-      <div class="container">
-        <h2 class="section-title">Frequently asked questions</h2>
-        <div class="faq-grid">
-          <article class="faq-item">
-            <h3>Does MODWAI send my database data to the cloud?</h3>
-            <p>Local Ollama analysis stays on your machine. MODWAI Proxy sends the analysis prompt and selected diagnostic context to our backend and the AI provider. Depending on your settings and analysis, this can include SQL text, literals, object names, and diagnostic detail rows. Review your diagnostic inputs and SQL-sharing setting before using cloud analysis.</p>
-          </article>
-          <article class="faq-item">
-            <h3>Do I need an Oracle Client installed?</h3>
-            <p>MODWAI supports both Thin mode (no Oracle Client needed) and Thick mode (uses Oracle Instant Client for advanced features like TNS aliases).</p>
-          </article>
-          <article class="faq-item">
-            <h3>Can I use my own AI API keys?</h3>
-            <p>Yes. MODWAI supports OpenAI (GPT-4), Anthropic (Claude), DeepSeek, and Google Gemini with your own keys — unlimited usage, you pay per token directly to the provider.</p>
-          </article>
-          <article class="faq-item">
-            <h3>What Oracle versions are supported?</h3>
-            <p>Oracle Database 19c and higher, including RAC clusters and Pluggable Databases.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="container contact-layout">
-        <div class="contact-copy">
-          <h2>Let us partner on world-class Oracle operations</h2>
-          <p>Have questions about integrations, data residency, or enterprise agreements? Send us a note and the MODWAI team will respond within one business day.</p>
-        </div>
-        <div class="contact-card">
-          <h3>Talk to our team</h3>
-          <ul>
-            <li>Email: <a href="mailto:hello@MODWAI.eu">hello@MODWAI.eu</a></li>
-          </ul>
-          <a class="ghost-button" href="mailto:hello@MODWAI.eu?subject=MODWAI%20pricing%20question">Email us</a>
-        </div>
-      </div>
-    </section>
+    <section class="contact-section" id="contact"><div class="container contact-layout"><div><p class="eyebrow">Let's talk about your setup</p><h2>Have a question about MODWAI?</h2><p>Tell us which Oracle environment you use and what you need to do.</p></div><a class="cta-button" href="mailto:hello@modwai.eu">hello@modwai.eu <span aria-hidden="true">↗</span></a></div></section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-layout">
-      <div>
-        <span class="logo">
-          <img src="assets/modwai-logo.svg" alt="MODWAI logo">
-        </span>
-        <p>AI-powered Oracle database monitoring, diagnostics, and SQL optimization.</p>
-      </div>
-      <div class="footer-meta">
-        <span>&copy; <span id="current-year"></span> MODWAI. All rights reserved.</span>
-        <span>Merchant of Record: Paddle.com Market Ltd.</span>
-        <div class="footer-legal-links">
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <span>•</span>
-          <a href="terms-of-service.html">Terms of Service</a>
-          <span>•</span>
-          <a href="refund-policy.html">Refund Policy</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
+  <footer class="site-footer"><div class="container footer-layout"><div><a class="logo" href="#top" aria-label="MODWAI home"><img src="assets/modwai-logo.svg" width="168" height="36" alt="MODWAI"></a><p>A desktop workspace for Oracle.</p></div><div class="footer-meta"><div class="footer-legal-links"><a href="privacy-policy.html">Privacy</a><a href="terms-of-service.html">Terms</a><a href="refund-policy.html">Refunds</a><a href="#faq">FAQ</a></div><span>© <span id="current-year">2026</span> MODWAI. All rights reserved.</span><span>Payments handled by Paddle as Merchant of Record.</span></div></div></footer>
   <script>
     window.PADDLE_VENDOR_ID = '40170';
     window.PADDLE_ENV = 'production';

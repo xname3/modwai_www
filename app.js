@@ -5,12 +5,18 @@
   const navMenu = document.querySelector('[data-nav]');
 
   if (navToggle && navMenu) {
+    const navLinks = navMenu.querySelectorAll('a');
     navToggle.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle(NAV_OPEN_CLASS);
       navToggle.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        navLinks[0]?.focus();
+      } else {
+        navToggle.focus();
+      }
     });
 
-    navMenu.querySelectorAll('a').forEach((link) => {
+    navLinks.forEach((link) => {
       link.addEventListener('click', () => {
         navMenu.classList.remove(NAV_OPEN_CLASS);
         navToggle.setAttribute('aria-expanded', 'false');
@@ -18,11 +24,14 @@
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && navMenu.classList.contains(NAV_OPEN_CLASS)) {
         navMenu.classList.remove(NAV_OPEN_CLASS);
         navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
       }
     });
+    navToggle.classList.add('is-enhanced');
+    navMenu.classList.add('is-enhanced');
   }
 
   const yearTarget = document.getElementById('current-year');
@@ -30,22 +39,25 @@
     yearTarget.textContent = String(new Date().getFullYear());
   }
 
-  // OS Detection for download section
+  // Only suggest a desktop download when the browser identifies a desktop OS.
   function detectOS() {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const platform = window.navigator.platform.toLowerCase();
-    
+    const navigator = window.navigator;
+    const userAgent = (navigator.userAgent || '').toLowerCase();
+    const platform = (navigator.platform || '').toLowerCase();
+    const isMobile = navigator.userAgentData?.mobile ||
+      /android|iphone|ipad|ipod|windows phone|iemobile|blackberry|mobile/.test(userAgent);
+    // iPadOS may identify itself as macOS when requesting desktop websites.
+    const isIPad = (platform.includes('mac') || userAgent.includes('macintosh')) &&
+      navigator.maxTouchPoints > 1;
+
+    if (isMobile || isIPad) return null;
+
     if (platform.includes('mac') || userAgent.includes('macintosh')) {
       return 'mac';
     } else if (platform.includes('win') || userAgent.includes('windows')) {
       return 'windows';
     } else if (platform.includes('linux') || userAgent.includes('linux')) {
-      // Try to detect which Linux distro (DEB vs RPM)
-      // Default to DEB as it's more common
-      if (userAgent.includes('fedora') || userAgent.includes('rhel') || userAgent.includes('centos')) {
-        return 'linux-rpm';
-      }
-      return 'linux-deb';
+      return 'linux';
     }
     return null;
   }
@@ -60,12 +72,6 @@
     downloadCards.forEach((card) => {
       if (card.dataset.os === detectedOS) {
         card.classList.add('is-recommended');
-        // Scroll into view if it's off screen (optional)
-        if (window.location.hash === '#download') {
-          setTimeout(() => {
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }, 300);
-        }
       }
     });
   }
@@ -77,34 +83,29 @@
     highlightRecommendedDownload();
   }
 
-  // Debug function - accessible from browser console
-  window.debugDownloads = function() {
-    const detectedOS = detectOS();
-    console.log('Detected OS:', detectedOS);
-    console.log('User Agent:', navigator.userAgent);
-    console.log('Platform:', navigator.platform);
-    return {
-      detectedOS,
-      userAgent: navigator.userAgent,
-      platform: navigator.platform
+  // Screenshots remain readable in document order when JavaScript is unavailable.
+  document.querySelectorAll('[data-gallery]').forEach((gallery) => {
+    const buttons = Array.from(gallery.querySelectorAll('[data-gallery-tab]'));
+    const panels = Array.from(gallery.querySelectorAll('[data-gallery-panel]'));
+    const selectPanel = (value) => {
+      if (!panels.some((panel) => panel.dataset.galleryPanel === value)) return;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.galleryTab === value));
+      });
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.galleryPanel !== value;
+      });
     };
-  };
-
-  // Manual OS override for testing - accessible from browser console
-  window.setRecommendedOS = function(os) {
-    const validOS = ['mac', 'windows', 'linux-deb', 'linux-rpm'];
-    if (!validOS.includes(os)) {
-      console.error(`Invalid OS. Use one of: ${validOS.join(', ')}`);
-      return;
-    }
-    document.querySelectorAll('.download-card').forEach((card) => {
-      card.classList.remove('is-recommended');
-      if (card.dataset.os === os) {
-        card.classList.add('is-recommended');
-      }
+    const firstButton = buttons.find((button) =>
+      panels.some((panel) => panel.dataset.galleryPanel === button.dataset.galleryTab)
+    );
+    if (!firstButton) return;
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => selectPanel(button.dataset.galleryTab));
     });
-    console.log(`Recommended download set to: ${os}`);
-  };
+    selectPanel(firstButton.dataset.galleryTab);
+    gallery.classList.add('is-enhanced');
+  });
 
   const isSandbox = (window.PADDLE_ENV || '').toLowerCase() === 'sandbox';
   const fallbackBaseUrl =
@@ -140,6 +141,11 @@
     element.setAttribute('href', `${fallbackBaseUrl}${priceId}?guest=1`);
     element.setAttribute('target', '_blank');
     element.setAttribute('rel', 'noreferrer noopener');
+  }
+
+  function fallbackPriceLabel(card, billingMode) {
+    const label = (card.dataset[`${billingMode}Label`] || '').trim();
+    return label && !/^loading\b/i.test(label) ? label : 'See price at checkout';
   }
 
   function applyBillingMode(mode) {
@@ -182,9 +188,9 @@
       button.removeAttribute('aria-disabled');
       ensureCheckoutUrl(button, priceId);
 
-      // Show loading state
+      // Keep useful checkout guidance visible even if the preview never returns.
       if (priceLabel) {
-        priceLabel.textContent = 'Loading price...';
+        priceLabel.textContent = fallbackPriceLabel(card, billingMode);
       }
 
       // Fetch and display actual price
@@ -197,11 +203,7 @@
       if (priceData && priceLabel) {
         priceLabel.textContent = formatPriceDisplay(priceData);
       } else if (priceLabel) {
-        // Fallback to label if price fetch fails
-        const label = card.dataset[`${billingMode}Label`];
-        if (label) {
-          priceLabel.textContent = label;
-        }
+        priceLabel.textContent = fallbackPriceLabel(card, billingMode);
       }
 
       if (billingCopy) {
@@ -350,7 +352,7 @@
 
   // Start initialization when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializePrices);
+    document.addEventListener('DOMContentLoaded', () => initializePrices());
   } else {
     initializePrices();
   }
